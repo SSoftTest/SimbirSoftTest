@@ -27,7 +27,6 @@ public class CountTest {
         //настройка автотестов на использование Selenium Grid вместо локальных браузеров
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         capabilities.setPlatform(Platform.WINDOWS);
-        //capabilities.setCapability("acceptSslCert", "true");
         //определение пути до драйвера и его настройка
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
         //создание экземпляра драйвера
@@ -74,6 +73,6 @@ public class CountTest {
         //выводим в теле письма найденное количество входящих сообщений с темой "Simbirsoft Тестовое задание"
         messagePage.inputAmountSubject(ConfProperties.getProperty("amount"));
         //нажимаем кнопку для отправки письма
-        //messagePage.sendMsg();
+        messagePage.sendMsg();
     }
 }
