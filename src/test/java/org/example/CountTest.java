@@ -3,15 +3,16 @@ package org.example;
 import net.bytebuddy.asm.Advice;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
-
-import static org.openqa.grid.common.SeleniumProtocol.Selenium;
 
 public class CountTest {
     public static  LoginPage loginPage;
@@ -22,13 +23,15 @@ public class CountTest {
      * осуществление первоначальной настройки
      */
     @BeforeClass
-    public static void setup() {
-        //Selenium selenium = new DefaultSelenium("localhost", 4444, "*chrome", "https://www.browserstack.com");
-        //DesiredCapabilities capability = DesiredCapabilities.chrome();
+    public static void setup() throws MalformedURLException {
+        //настройка автотестов на использование Selenium Grid вместо локальных браузеров
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        capabilities.setPlatform(Platform.WINDOWS);
+        //capabilities.setCapability("acceptSslCert", "true");
         //определение пути до драйвера и его настройка
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
         //создание экземпляра драйвера
-        driver = new ChromeDriver();
+        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
         loginPage = new LoginPage(driver);
         profilePage = new ProfilePage(driver);
         messagePage = new MessagePage(driver);
