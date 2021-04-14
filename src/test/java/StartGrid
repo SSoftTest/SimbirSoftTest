@@ -1,0 +1,13 @@
+Инструкция по запуску Selenium Grid:
+
+1) Для запуска хаба ввести команду в командной строке:
+java -jar selenium-server-standalone-3.141.59.jar -role hub
+2) Для запуска узлов ввести команду (количество подключаемых узлов равно количеству раз ввода этой команды):
+java -jar selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444/grid/register
+3) Чтобы использовать Selenium Grid в тестах необходимо указать путь, где находится драйвер браузера. Для этого нужно
+ввести в командной сроке:
+java -jar -Dwebdriver.chrome.driver=C:\Selenium\drivers\chrome\chromedriver.exe selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444/grid/register
+
+Вместо ввода C:\Selenium\drivers\chrome\chromedriver.exe необходимо указать путь на вашем компьютере, где находится драйвер.
+
+4) Запускаем тесты.

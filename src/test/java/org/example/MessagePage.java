@@ -21,7 +21,7 @@ public class MessagePage {
     /**
      * определение локатора "Написать сообщение"
      */
-    @FindBy(xpath = "//*[contains(@class, 'mail-ComposeButton js-main-action-compose')]")
+    @FindBy(xpath = "//*[contains(@class, 'mail-ComposeButton')]")
     private WebElement writeMsgBtn;
     /**
      * определение локатора поля "Кому"
@@ -31,7 +31,7 @@ public class MessagePage {
     /**
      * определение локатора темы сообщения
      */
-    @FindBy(xpath = "//*[contains(@class, 'composeTextField ComposeSubject-TextField')]")
+    @FindBy(xpath = "//*[contains(@class, 'composeTextField')]")
     private WebElement subjectBtn;
     /**
      * определение локатора тела письма
@@ -43,6 +43,16 @@ public class MessagePage {
      */
     @FindBy(xpath = "//*[contains(@class, 'ComposeSendButton')]")
     private WebElement sendMsgBtn;
+    /**
+     * определение локатора для отправленных сообщений
+     */
+    @FindBy(xpath = "//*[contains(@title, 'Отправленные')]")
+    private WebElement sentMsgBtn;
+    /**
+     * определение локатора на теме отправленных сообщений
+     */
+    @FindBy(xpath = "//*[contains(@title, 'Simbirsoft Testovoe zadanie. Prokofiev')]")
+    private WebElement sentSubjectEq;
     /**
      * метод для подсчёта входящих сообщений с темой "Simbirsoft Тестовое задание"
      */
@@ -57,34 +67,16 @@ public class MessagePage {
         writeMsgBtn.click();
     }
     /**
-     * метод для нажатия кнопки "Написать сообщение"
-     */
-    public void toWhom() {
-        forWhomField.click();
-    }
-    /**
      * метод для ввода адреса электронной почты получателя
      */
     public void inputEmail(String login) {
         forWhomField.sendKeys(login + "\n");
     }
     /**
-     * метод для нажатия кнопки на поле "тема сообщения"
-     */
-    public void subjectField() {
-        subjectBtn.click();
-    }
-    /**
      * метод для ввода содержимого в поле темы сообщения
      */
     public void inputSubject(String subject) {
         subjectBtn.sendKeys(subject);
-    }
-    /**
-     * метод для нажатия кнопки на поле тела письма
-     */
-    public void textField() {
-        textField.click();
     }
     /**
      * метод, вводящий в тело письма сообщение о количестве найденных писем
@@ -97,5 +89,22 @@ public class MessagePage {
      */
     public void sendMsg() {
         sendMsgBtn.click();
+    }
+    /**
+     * метод для нажатия кнопки папки "Отправленное"
+     */
+    public void sentMsg() {
+        sentMsgBtn.click();
+    }
+    /**
+     * метод для проверки наличия отправленного письма с темой "Simbirsoft Testovoe zadanie. Prokofiev" в папке "Отправленное"
+     */
+    public boolean presenceSubject() {
+        List<WebElement> subjectPresence = driver.findElements(By.xpath("//*[contains(@title, 'Simbirsoft Testovoe zadanie. Prokofiev')]"));
+        boolean presence = true;
+        if (subjectPresence.isEmpty()) {
+            presence = false;
+        }
+        return presence;
     }
 }

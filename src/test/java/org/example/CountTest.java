@@ -1,12 +1,9 @@
 package org.example;
 
-import net.bytebuddy.asm.Advice;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -50,7 +47,7 @@ public class CountTest {
         loginPage.clickLoginBtn();
         //вводим пароль
         loginPage.inputPasswd(ConfProperties.getProperty("password"));
-        //нажимаем кнопку входа
+        //подтверждаем ввод
         loginPage.clickLoginBtn();
         //нажимаем кнопку меню пользователя
         profilePage.entryMenu();
@@ -60,19 +57,17 @@ public class CountTest {
         messagePage.amountSameSubject();
         //нажимаем кнопку для написания сообщения
         messagePage.writeMsg();
-        //нажимаем на поле "Кому"
-        messagePage.toWhom();
         //вводим адрес электронной почты получателя
         messagePage.inputEmail(ConfProperties.getProperty("login"));
-        //нажимаем на поле ввода темы
-        messagePage.subjectField();
         //вводим содержимое в поле темы сообщения
         messagePage.inputSubject(ConfProperties.getProperty("subject"));
-        //нажимаем на поле текста
-        messagePage.textField();
         //выводим в теле письма найденное количество входящих сообщений с темой "Simbirsoft Тестовое задание"
         messagePage.inputAmountSubject(ConfProperties.getProperty("amount"));
         //нажимаем кнопку для отправки письма
         messagePage.sendMsg();
+        //нажимаем кнопку "Отправленные"
+        messagePage.sentMsg();
+        //проверяем наличие письма в папке "Отправленное"
+        messagePage.presenceSubject();
     }
 }
